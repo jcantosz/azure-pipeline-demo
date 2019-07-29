@@ -1,0 +1,22 @@
+# Docker build and push
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'demo-registry-connection'
+    repository: 'node-demo'
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'demo-registry-connection'
+    repository: 'node-demo'
+    command: 'push'
+    tags: |
+      $(Build.BuildId)
+      latest
