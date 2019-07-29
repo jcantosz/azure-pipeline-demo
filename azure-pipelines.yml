@@ -17,3 +17,6 @@ steps:
     containerRegistry: 'demo-registry-connection'
     repository: 'node-demo'
     command: 'push'
+    tags: |
+      $(Build.BuildId)
+      latest
