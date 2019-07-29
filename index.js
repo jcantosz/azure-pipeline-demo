@@ -6,3 +6,4 @@ app.get('/', (req, res) => {
   res.send('demo');
 });
 
+app.listen(3000);
