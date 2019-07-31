@@ -9,7 +9,7 @@ pool:
 steps:
 - task: Docker@2
   inputs:
-    containerRegistry: 'demo-registry-connection'
+    containerRegistry: 'acr'
     repository: 'node-demo'
     command: 'build'
     Dockerfile: '**/Dockerfile'
@@ -23,7 +23,7 @@ steps:
 # Push
 - task: Docker@2
   inputs:
-    containerRegistry: 'demo-registry-connection'
+    containerRegistry: 'acr' 
     repository: 'node-demo'
     command: 'push'
     tags: |
@@ -34,14 +34,10 @@ steps:
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'demo-azure-connection'
+    kubernetesServiceEndpoint: 'aks'
     namespace: 'default'
     command: 'apply'
     useConfigurationFile: true
     configuration: './deployment.yaml'
     secretType: 'dockerRegistry'
-    containerRegistryType: 'Azure Container Registry'
-    azureSubscriptionEndpointForSecrets: 'Microsoft Azure Sponsorship (d09f4363-eae7-4c79-864e-08154540c083)'
-    azureContainerRegistry: 'boxboatdemo.azurecr.io'
     secretName: 'demo-registry'
-    forceUpdate: true
