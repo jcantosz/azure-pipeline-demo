@@ -33,6 +33,13 @@ steps:
     tags: |
       $(Build.BuildId)
       latest
+# Init helm client
+- task: HelmDeploy@0
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceConnection: 'aks'
+    command: 'init'
+    arguments: '--client-only --service-account tiller'
 
 # Deploy
 - task: HelmDeploy@0
