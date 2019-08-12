@@ -42,11 +42,18 @@ steps:
     arguments: '--client-only --service-account tiller'
 
 # Deploy
-- task: HelmDeploy@0
+## "Error: pods is forbidden: User "system:serviceaccount:default:***" cannot list resource "pods" in API group "" in the namespace "kube-system" "
+# - task: HelmDeploy@0
+#  inputs:
+#    connectionType: 'Kubernetes Service Connection'
+#    kubernetesServiceConnection: 'aks'
+#    command: 'install'
+#    chartType: 'FilePath'
+#    chartPath: './charts/demo'
+#    overrideValues: 'image.repository=$(acrRepo),image.tag=$(Build.BuildId),ingress.enabled=true,ingress.hosts[0]=$(ingressUrl)'
+- task: Bash@3
   inputs:
-    connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceConnection: 'aks'
-    command: 'install'
-    chartType: 'FilePath'
-    chartPath: './charts/demo'
-    overrideValues: 'image.repository=$(acrRepo),image.tag=$(Build.BuildId),ingress.enabled=true,ingress.hosts[0]=$(ingressUrl)'
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+       helm template --name demo --set image.repository=$(acrRepo),image.tag=$(Build.BuildId),ingress.enabled=true,ingress.hosts[0]=$(ingressUrl)  ./charts/demo | kubectl apply -f
