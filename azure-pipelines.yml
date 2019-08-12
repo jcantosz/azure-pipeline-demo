@@ -42,4 +42,4 @@ steps:
     command: 'install'
     chartType: 'FilePath'
     chartPath: './charts/demo'
-    overrideValues: 'image.respository=$(acrRepo),image.tag=$(Build.BuildId),ingress.enabled=true,ingress.hosts[0]=$(ingressUrl)'
+    overrideValues: 'image.repository=$(acrRepo),image.tag=$(Build.BuildId),ingress.enabled=true,ingress.hosts[0]=$(ingressUrl)'

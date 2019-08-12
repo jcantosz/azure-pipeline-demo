@@ -8,6 +8,7 @@ image:
   repository: nginx
   tag: stable
   pullPolicy: IfNotPresent
+  pullSecret: acr-auth
 
 nameOverride: ""
 fullnameOverride: ""
