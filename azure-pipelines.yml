@@ -1,3 +1,7 @@
+variables:
+  acrRepo: cnbmqxb3e23f2.azurecr.io/node-demo
+  ingressUrl: demo-cluster-rg-ingest.eastus.cloudapp.azure.com
+
 # Docker build and push
 trigger:
 - master
@@ -31,11 +35,11 @@ steps:
       latest
 
 # Deploy
-- task: Kubernetes@1
+- task: HelmDeploy@0
   inputs:
     connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'aks'
-    namespace: 'default'
-    command: 'apply'
-    useConfigurationFile: true
-    configuration: './deployment.yaml'
+    kubernetesServiceConnection: 'aks'
+    command: 'install'
+    chartType: 'FilePath'
+    chartPath: './charts/demo'
+    overrideValues: 'image.respository=$(acrRepo),image.tag=$(Build.BuildId),ingress.enabled=true,ingress.hosts[0]=$(ingressUrl)'
