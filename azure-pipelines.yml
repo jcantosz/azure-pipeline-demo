@@ -56,4 +56,5 @@ steps:
     targetType: 'inline'
     script: |
       # Write your commands here
-       helm template --name demo --set image.repository=$(acrRepo),image.tag=$(Build.BuildId),ingress.enabled=true,ingress.hosts[0]=$(ingressUrl)  ./charts/demo | kubectl apply -f
+      helm template --name demo --set image.repository=$(acrRepo),image.tag=$(Build.BuildId),ingress.enabled=true,ingress.hosts[0]=$(ingressUrl)  ./charts/demo 
+      helm template --name demo --set image.repository=$(acrRepo),image.tag=$(Build.BuildId),ingress.enabled=true,ingress.hosts[0]=$(ingressUrl)  ./charts/demo | kubectl apply -f -
