@@ -39,5 +39,3 @@ steps:
     command: 'apply'
     useConfigurationFile: true
     configuration: './deployment.yaml'
-    secretType: 'dockerRegistry'
-    secretName: 'demo-registry'

@@ -41,7 +41,7 @@ spec:
       serviceAccountName: demo-sa
       containers:
       - name: demo
-        image: boxboatdemo.azurecr.io/node-demo:latest 
+        image: cnbmqxb3e23f2.azurecr.io/node-demo:latest 
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
